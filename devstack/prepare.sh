@@ -16,4 +16,4 @@ sudo iptables -I FORWARD -s 172.24.4.0/24 -j ACCEPT
 sudo iptables -D FORWARD -d 172.24.4.0/24 -j ACCEPT
 sudo iptables -I FORWARD -d 172.24.4.0/24 -j ACCEPT
 sudo ip route add 10.0.0.0/24 via 172.24.4.2 dev br-ex
-/home/elynn/devstack/rejoin-stack.sh
+/home/elynn/source/devstack/rejoin-stack.sh
