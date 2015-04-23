@@ -1,2 +1,3 @@
 # Add your local tmux config here
 set-option -g history-limit 10000
+set-option -g allow-rename off
