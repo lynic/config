@@ -1,0 +1,6 @@
+# Add your local tmux config here
+set-option -g history-limit 10000
+set-option -g allow-rename off
+#source '/usr/share/tmux/powerline.conf'
+set-option -g default-shell /bin/zsh
+set-option -g default-command "/bin/zsh -c 'which reattach-to-user-namespace >/dev/null && exec reattach-to-user-namespace $SHELL -l || exec $SHELL -l'"
