@@ -1,4 +1,7 @@
 #!/bin/bash
+set -x
 
-mkdir ~/.pip
+if [[ ! -d ~/.pip ]]; then
+  mkdir ~/.pip
+fi
 cp pip.conf ~/.pip/
