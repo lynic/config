@@ -2,6 +2,6 @@
 set -x
 
 if [[ ! -d ~/.pip ]]; then
-  mkdir ~/.pip
+  mkdir -p ~/.pip/cache
 fi
 cp pip.conf ~/.pip/
