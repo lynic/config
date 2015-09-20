@@ -1,13 +1,8 @@
 #!/bin/bash
-#sudo apt-get install -y git vim
 sudo yum install -y vim git
 cd /opt/stack/
 if [[ ! -d devstack ]]; then
   git clone https://github.com/openstack-dev/devstack
-else
-  pushd devstack/
-  git pull origin master
-  popd
 fi
 if [[ -e local.conf ]]; then
   cp local.conf devstack/

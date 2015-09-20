@@ -9,6 +9,7 @@ Vagrant.configure(2) do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
+  config.vm.hostname = "devstack"
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
@@ -70,15 +71,10 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL, privileged: false
-    #sudo apt-get install -y git vim
     sudo yum install -y vim git
     cd /opt/stack/
     if [[ ! -d devstack ]]; then
       git clone https://github.com/openstack-dev/devstack
-    else
-      pushd devstack/
-      git pull origin master
-      popd
     fi
     if [[ -e local.conf ]]; then
       cp local.conf devstack/
