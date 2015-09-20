@@ -70,7 +70,13 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-  #  sudo apt-get install -y git vim
+    #sudo apt-get install -y git vim
     sudo yum install -y vim git
+    cd /opt/stack/
+    git clone https://github.com/openstack-dev/devstack
+    cp /vagrant/local.conf devstack/
+    cd devstack/
+    sed -i "s/#HOST_IP=8.8.8.8/HOST_IP=192.168.33.10/" local.conf
+    ./stack.sh
   SHELL
 end
