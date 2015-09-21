@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo yum install -y vim git
+sudo yum install -y vim git python34
 cd /opt/stack/
 if [[ ! -d devstack ]]; then
   git clone https://github.com/openstack-dev/devstack
