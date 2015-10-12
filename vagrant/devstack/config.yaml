@@ -1,0 +1,5 @@
+hostname: devstack
+ip: 192.168.33.10
+box_name: ubuntu/trust64
+cpu: 2
+mem: 8192
