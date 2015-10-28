@@ -1,13 +1,17 @@
 #!/bin/bash
-
+set -x
 
 sudo pvcreate /dev/sdb
 sudo vgcreate stack-volumes-default /dev/sdb
 sudo pvcreate /dev/sdc
 sudo vgcreate stack-volumes-lvmdriver-1 /dev/sdc
 
+mkdir -p ~/data/
+
 if [[ -f /etc/redhat-release ]]; then
-  sudo yum install -y vim git python34
+  sudo yum install -y vim git screen
+#  sudo yum install -y epel-release rdo-release
+#  sudo yum install -y httpd openvswitch
   DEFAULT_NIC=`ip route |grep default |cut -d' ' -f5`
   SECOND_NIC=`ip route |grep -v $DEFAULT_NIC | tail -1 |cut -d' ' -f3`
   IP_ADDRESS=`ifconfig $SECOND_NIC |grep 'inet' |grep -v 'inet6' |awk '{print $2}'`
