@@ -39,4 +39,4 @@ fi
 
 cd $DEVSTACK_DIR
 sed -i "s/#HOST_IP=8.8.8.8/HOST_IP=$IP_ADDRESS/" local.conf
-bash ./unstack.sh; ./stack.sh
+bash ./stack.sh
