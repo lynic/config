@@ -1,2 +1,5 @@
-.vagrant
 *.vdi
+.vagrant
+.DS_Store
+.idea
+pycharm
