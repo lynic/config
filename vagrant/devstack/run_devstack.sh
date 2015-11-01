@@ -16,6 +16,8 @@ if [[ -f /etc/redhat-release ]]; then
   SECOND_NIC=`ip route |grep -v $DEFAULT_NIC | tail -1 |cut -d' ' -f3`
   IP_ADDRESS=`ifconfig $SECOND_NIC |grep 'inet' |grep -v 'inet6' |awk '{print $2}'`
   HOSTNAME=`hostname`
+  sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+  sudo service iptables save
 else
   sudo apt-get install -y vim git python3
   IP_ADDRESS=`ifconfig eth1 | grep 'inet addr' | awk '{print $5}' | cut -d':' -f2`
