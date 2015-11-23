@@ -10,8 +10,7 @@ mkdir -p ~/data/
 
 if [[ -f /etc/redhat-release ]]; then
   sudo yum install -y vim git screen postgresql-devel
-#  sudo yum install -y epel-release rdo-release
-#  sudo yum install -y httpd openvswitch
+  sudo yum install -y https://rdoproject.org/repos/rdo-release.rpm
   DEFAULT_NIC=`ip route |grep default |cut -d' ' -f5`
   SECOND_NIC=`ip route |grep -v $DEFAULT_NIC | tail -1 |cut -d' ' -f3`
   IP_ADDRESS=`ifconfig $SECOND_NIC |grep 'inet' |grep -v 'inet6' |awk '{print $2}'`
@@ -20,6 +19,7 @@ if [[ -f /etc/redhat-release ]]; then
   sudo service iptables save
 else
   sudo apt-get install -y vim git python3
+  sudo apt-get install -y bridge-utils ebtables
   IP_ADDRESS=`ifconfig eth1 | grep 'inet addr' | awk '{print $5}' | cut -d':' -f2`
   HOSTNAME=`hostname`
 fi
