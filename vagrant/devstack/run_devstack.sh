@@ -11,16 +11,30 @@ mkdir -p ~/data/
 if [[ -f /etc/redhat-release ]]; then
   sudo yum install -y vim git screen postgresql-devel
   sudo yum install -y https://rdoproject.org/repos/rdo-release.rpm
+  pushd /tmp/
+  git clone https://github.com/id/zookeeper-el7-rpm
+  sudo yum install make rpmdevtools -y
+  pushd zookeeper-el7-rpm
+  make rpm
+  sudo yum install zookeeper*.rpm
+  popd
+  popd
+  
   DEFAULT_NIC=`ip route |grep default |cut -d' ' -f5`
   SECOND_NIC=`ip route |grep -v $DEFAULT_NIC | tail -1 |cut -d' ' -f3`
   IP_ADDRESS=`ifconfig $SECOND_NIC |grep 'inet' |grep -v 'inet6' |awk '{print $2}'`
   HOSTNAME=`hostname`
   sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT
-  sudo service iptables save
+  sudo iptables-save > /etc/sysconfig/iptables
 else
+#  sudo sh -c 'cat > /etc/apt/sources.list.d/backports.list <<END
+#deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse
+#deb-src http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse
+#END'
+  sudo apt-get update -y
   sudo apt-get install -y vim git python3
   sudo apt-get install -y bridge-utils ebtables
-  IP_ADDRESS=`ifconfig eth1 | grep 'inet addr' | awk '{print $5}' | cut -d':' -f2`
+  IP_ADDRESS=`ifconfig eth1 | grep 'inet addr' | awk '{print $3}' | cut -d':' -f2`
   HOSTNAME=`hostname`
 fi
 

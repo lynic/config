@@ -5,9 +5,11 @@
 Vagrant.configure(2) do |config|
   config.vm.hostname = 'devstack'
 
-  config.vm.box = "ubuntu/trusty64"
+  #config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "boxcutter/ubuntu1404"
   #config.vm.box = "puppetlabs/centos-7.0-64-nocm"
   #config.vm.box = "bento/centos-7.1"
+  #config.vm.box = "boxcutter/centos71"
   #config.vm.box = "puppetlabs/centos-6.6-64-nocm"
 
   config.vm.box_check_update = false
@@ -35,7 +37,7 @@ Vagrant.configure(2) do |config|
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "8192"
   #   vb.cpu = "2"
-    vb.customize ['modifyvm', :id, '--memory', '8196']
+    vb.customize ['modifyvm', :id, '--memory', '6093']
     vb.customize ['modifyvm', :id, '--cpus',   '2']
     unless File.exist?('stack-volumes-default.vdi')
       vb.customize ["createhd",  "--filename", "stack-volumes-default", "--size", 10240]
