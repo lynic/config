@@ -7,9 +7,9 @@ cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
 cat >> ~/.zshrc <<END
 
-    alias tmux='tmux -2'
-    alias ta='tmux attach -t'
-    alias tn='tmux new -s'
-    alias tl='tmux ls'
-    alias tk='tmux kill-session -t'
+alias tmux='tmux -2'
+alias ta='tmux attach -t'
+alias tn='tmux new -s'
+alias tl='tmux ls'
+alias tk='tmux kill-session -t'
 END
