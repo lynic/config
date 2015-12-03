@@ -10,7 +10,6 @@ cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
 if [[ -z "`grep 'alias tn=' ~/.zshrc`" ]];then 
 cat >> ~/.zshrc <<END
-
 alias tmux='tmux -2'
 alias ta='tmux attach -t'
 alias tn='tmux new -s'
