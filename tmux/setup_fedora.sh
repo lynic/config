@@ -1,9 +1,10 @@
 #!/bin/bash
 set -x
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-sudo yum install -y tmux tmux-powerline zsh
-cp /home/elynn/source/config/tmux/tmux.conf ~/.tmux.conf
-cp /home/elynn/source/config/tmux/tmux.conf.local ~/.tmux.conf.local
-../zsh/setup_zsh.sh
-../vim/setup_vim.sh
+sudo yum install -y tmux tmux-powerline git git-review gitk
+cp $DIR/tmux.conf ~/.tmux.conf
+cp $DIR/tmux.conf.local ~/.tmux.conf.local
+$DIR/../zsh/setup_zsh.sh
+$DIR/../vim/setup_vim.sh
 
