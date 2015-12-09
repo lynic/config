@@ -49,8 +49,6 @@ fi
 
 if [[ -e /opt/stack/local.conf ]]; then
   cp /opt/stack/local.conf $DEVSTACK_DIR
-else
-  cp /vagrant/local.conf $DEVSTACK_DIR
 fi
 
 cd $DEVSTACK_DIR
