@@ -10,10 +10,10 @@ fi
 git clone https://github.com/openstack-dev/devstack $devstack_path
 
 if [[ ! -f ${devstack_path}/local.conf ]];then
-cp $SCRIPT_DIR/../vagrant/devstack/local.conf $devstack_path
+cp $SCRIPT_DIR/local.conf $devstack_path
 fi
 
-if [[ -z "`grep sopenrc ~/.zshrc`" ]]; then
+if [[ -n `command -v zsh` && -z "`grep sopenrc ~/.zshrc`" ]]; then
 cat >> ~/.zshrc <<END
 function sopenrc {
 pushd $devstack_path >/dev/null
