@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 sudo yum install -y vagrant vagrant-libvirt libvirt
 sudo curl -o /etc/yum.repos.d/virtualbox.repo http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
@@ -12,3 +13,7 @@ cat >> ~/.zshrc <<END
 alias v='vagrant'
 END
 fi
+if [[ ! -d ~/.vagrant.d/ ]];then
+    mkdir ~/.vagrant.d/
+fi
+cp $DIR/Vagrangfile ~/.vagrant.d/

@@ -1,0 +1,9 @@
+[submodule "vagrant/coreos-vagrant"]
+	path = vagrant/coreos-vagrant
+	url = https://github.com/coreos/coreos-vagrant
+[submodule "vagrant/playa-mesos"]
+	path = vagrant/playa-mesos
+	url = https://github.com/mesosphere/playa-mesos
+[submodule "vagrant/bosh-lite"]
+	path = vagrant/bosh-lite
+	url = https://github.com/cloudfoundry/bosh-lite
