@@ -3,8 +3,6 @@ set -x
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 sudo yum install -y vagrant vagrant-libvirt libvirt
-sudo yum install -y docker docker-client
-#sudo yum install -y docker-zsh-completion docker-vim
 sudo curl -o /etc/yum.repos.d/virtualbox.repo http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
 sudo yum install -y VirtualBox-5.0
 sudo yum install -y kernel-devel-`uname -r`
