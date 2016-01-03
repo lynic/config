@@ -4,9 +4,9 @@
 [submodule "vagrant/playa-mesos"]
 	path = vagrant/playa-mesos
 	url = https://github.com/mesosphere/playa-mesos
-[submodule "vagrant/bosh-lite"]
-	path = vagrant/bosh-lite
+[submodule "vagrant/cloudfoundry/bosh-lite"]
+	path = vagrant/cloudfoundry/bosh-lite
 	url = https://github.com/cloudfoundry/bosh-lite
-[submodule "vagrant/cf-release"]
-	path = vagrant/cf-release
+[submodule "vagrant/cloudfoundry/cf-release"]
+	path = vagrant/cloudfoundry/cf-release
 	url = https://github.com/cloudfoundry/cf-release
