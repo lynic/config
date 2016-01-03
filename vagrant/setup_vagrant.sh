@@ -13,9 +13,10 @@ sudo KERN_DIR=/usr/src/kernels/`uname -r`/ /sbin/rcvboxdrv setup
 if [[ -n `command -v zsh` && -z `grep 'alias v=' ~/.zshrc` ]];then
 cat >> ~/.zshrc <<END
 alias v='vagrant'
+export VAGRANT_DEFAULT_PROVIDER='virtualbox'
 END
 fi
-if [[ ! -d ~/.vagrant.d/ ]];then
-    mkdir ~/.vagrant.d/
-fi
-cp $DIR/Vagrangfile ~/.vagrant.d/
+# if [[ ! -d ~/.vagrant.d/ ]];then
+#     mkdir ~/.vagrant.d/
+# fi
+# cp $DIR/Vagrangfile ~/.vagrant.d/
