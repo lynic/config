@@ -7,3 +7,6 @@
 [submodule "vagrant/bosh-lite"]
 	path = vagrant/bosh-lite
 	url = https://github.com/cloudfoundry/bosh-lite
+[submodule "vagrant/cf-release"]
+	path = vagrant/cf-release
+	url = https://github.com/cloudfoundry/cf-release

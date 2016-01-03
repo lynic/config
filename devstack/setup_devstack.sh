@@ -13,12 +13,15 @@ if [[ ! -f ${devstack_path}/local.conf ]];then
 cp $SCRIPT_DIR/local.conf $devstack_path
 fi
 
-if [[ -n `command -v zsh` && -z "`grep sopenrc ~/.zshrc`" ]]; then
+if [[ -n `command -v zsh` && -z "`grep devstack ~/.zshrc`" ]]; then
 cat >> ~/.zshrc <<END
+
+### devstack begin ###
 function sopenrc {
 pushd $devstack_path >/dev/null
 eval \$(bash -c ". openrc \$1 \$2;env|sed -n '/OS_/ { s/^/export /;p}'")
 popd >/dev/null
+### devstack end ###
 }
 END
 fi
