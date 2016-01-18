@@ -8,6 +8,8 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 fi
 brew install zsh tmux
 brew install git git-review
+git config --global core.editor vim
+
 brew tap caskroom/cask
 brew cask install vagrant
 brew cask install virtualbox virtualbox-extension-pack
