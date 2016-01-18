@@ -5,18 +5,22 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Install HomeBrew
 if [[ -z `command -v brew` ]];then
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install zsh tmux brew-cask vagrant git
-brew install virtualbox virtualbox-extension-pack
-fi 
+fi
+brew install zsh tmux
+brew install git git-review
+brew tap caskroom/cask
+brew cask install vagrant
+brew cask install virtualbox virtualbox-extension-pack
 
-cp $DIR/../tmux.conf ~/.tmux.conf
-cp $DIR/../tmux.conf.local.mac ~/.tmux.conf.local
+cp $DIR/../tmux/tmux.conf ~/.tmux.conf
+cp $DIR/../tmux/tmux.conf.local.mac ~/.tmux.conf.local
 
 # Install oh-my-zsh
 if [[ ! -f ~/.zshrc ]];then
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
 echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+echo 'export HOMEBREW_GITHUB_API_TOKEN=71135fbace8ee405108617aea062824b80461def' >> ~/.zshrc
 fi
 
 # Install vim
