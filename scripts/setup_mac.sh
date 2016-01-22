@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -ex
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Install HomeBrew
@@ -9,6 +9,7 @@ fi
 brew install zsh tmux
 brew install git git-review
 git config --global core.editor vim
+brew install docker docker-machine docker-compose
 
 brew tap caskroom/cask
 brew cask install iterm2
@@ -21,9 +22,14 @@ cp $DIR/../tmux/tmux.conf.local.mac ~/.tmux.conf.local
 # Install oh-my-zsh
 if [[ ! -f ~/.zshrc ]];then
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
-echo 'eval "$(rbenv init -)"' >> ~/.zshrc
-echo 'export HOMEBREW_GITHUB_API_TOKEN=71135fbace8ee405108617aea062824b80461def' >> ~/.zshrc
+# echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+# echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+# echo 'export HOMEBREW_GITHUB_API_TOKEN=71135fbace8ee405108617aea062824b80461def' >> ~/.zshrc
+cat >> ~/.zshrc <<END
+function endocker {
+eval \$(docker-machine env \$1)
+}
+END
 fi
 
 # Install vim
