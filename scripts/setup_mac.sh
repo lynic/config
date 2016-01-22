@@ -25,6 +25,7 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 # echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
 # echo 'eval "$(rbenv init -)"' >> ~/.zshrc
 # echo 'export HOMEBREW_GITHUB_API_TOKEN=71135fbace8ee405108617aea062824b80461def' >> ~/.zshrc
+echo "export VAGRANT_DEFAULT_PROVIDER='virtualbox'" >> ~/.zshrc
 cat >> ~/.zshrc <<END
 function endocker {
 eval \$(docker-machine env \$1)
