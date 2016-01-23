@@ -27,10 +27,11 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 # echo 'export HOMEBREW_GITHUB_API_TOKEN=71135fbace8ee405108617aea062824b80461def' >> ~/.zshrc
 echo "export VAGRANT_DEFAULT_PROVIDER='virtualbox'" >> ~/.zshrc
 cat >> ~/.zshrc <<END
-function endocker {
+function endm {
 docker-machine start \$1
 eval \$(docker-machine env \$1)
 }
+alias lsdm='docker-machine ls'
 END
 fi
 
