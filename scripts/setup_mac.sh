@@ -28,6 +28,7 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 echo "export VAGRANT_DEFAULT_PROVIDER='virtualbox'" >> ~/.zshrc
 cat >> ~/.zshrc <<END
 function endocker {
+docker-machine start \$1
 eval \$(docker-machine env \$1)
 }
 END
