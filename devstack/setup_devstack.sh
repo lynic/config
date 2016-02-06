@@ -13,7 +13,7 @@ if [[ ! -f ${devstack_path}/local.conf ]];then
 cp $SCRIPT_DIR/local.conf $devstack_path
 fi
 
-if [[ -n `command -v zsh` && -z "`grep devstack ~/.zshrc`" ]]; then
+if [[ -n `command -v zsh` && -z "`grep sopenrc ~/.zshrc`" ]]; then
 cat >> ~/.zshrc <<END
 
 ### devstack begin ###
@@ -26,10 +26,4 @@ popd >/dev/null
 END
 fi
 
-source /etc/os-release
-if [[ ! -f /etc/yum.repos.d/phracek-PyCharm-fedora-${VERSION_ID}.repo ]];then
-    pushd /etc/yum.repos.d/
-    sudo curl -O https://copr.fedoraproject.org/coprs/phracek/PyCharm/repo/fedora-${VERSION_ID}/phracek-PyCharm-fedora-${VERSION_ID}.repo
-    popd
-fi
-sudo yum install -y pycharm-community
+$SCRIPT_DIR/../pycharm/setup_pycharm.sh
