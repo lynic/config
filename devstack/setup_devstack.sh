@@ -26,4 +26,8 @@ popd >/dev/null
 END
 fi
 
+# for mongod
+sudo cp $SCRIPT_DIR/disable-transparent-hugepages /etc/init.d/disable-transparent-hugepages
+sudo chkconfig --add disable-transparent-hugepages
+
 $SCRIPT_DIR/../pycharm/setup_pycharm.sh
