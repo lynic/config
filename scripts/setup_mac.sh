@@ -32,8 +32,13 @@ brew_cask_install iterm2
 brew_cask_install vagrant
 brew_cask_install virtualbox virtualbox-extension-pack
 
+pip install --user powerline-status
+POWERLINE_CONF=$(find $HOME -name powerline.conf |head -n 1)
+POWERLINE_CMD=$(find $HOME -name powerline-config | head -n 1)
 cp $DIR/../tmux/tmux.conf ~/.tmux.conf
 cp $DIR/../tmux/tmux.conf.local.mac ~/.tmux.conf.local
+sed -i "s/POWERLINE_CONF/$POWERLINE_CONF" ~/.tmux.conf.local
+sed -i "s/POWERLINE_CMD/$POWERLINE_CMD" ~/.tmux.conf.local
 
 # Install oh-my-zsh
 if [[ ! -f ~/.zshrc ]];then
