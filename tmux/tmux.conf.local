@@ -8,4 +8,5 @@ set -g base-index 1
 set-option -g history-limit 10000
 set-option -g allow-rename off
 set-option -g default-shell /bin/zsh
-source '/usr/share/tmux/powerline.conf'
+run-shell "powerline-daemon -q"
+if-shell "grep -i fedora /etc/redhat-release" "source /usr/share/tmux/powerline.conf" "source /usr/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf"
