@@ -4,7 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # disabled selinux
 sudo setenforce 0
-sudo sed -i 's/\=enforcing/\=disabled/g' /etc/sysconfig/selinux
+sudo sed -i 's/\=enforcing/\=disabled/g' /etc/selinux/config
 
 # enable RPMFusion
 if [[ -n $(grep -i fedora /etc/redhat-release) ]];then
