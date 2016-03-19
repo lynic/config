@@ -4,7 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # disabled selinux
 sudo setenforce 0
-sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+sudo sed -i 's/\=enforcing/\=disabled/g' /etc/sysconfig/selinux
 
 # enable RPMFusion
 if [[ -n $(grep -i fedora /etc/redhat-release) ]];then
@@ -16,6 +16,7 @@ sudo yum install -y epel-release
 fi
 
 $DIR/../zsh/setup_zsh.sh
+$DIR/../conda/setup_conda.sh
 $DIR/../tmux/setup_tmux.sh
 $DIR/../vim/setup_vim.sh
 
