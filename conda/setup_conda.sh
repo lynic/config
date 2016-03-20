@@ -10,4 +10,6 @@ fi
 if [[ -z $(grep conda $HOME/.zshrc) ]];then
     export PATH=$HOME/miniconda2/bin:$PATH
     echo "export PATH=$HOME/miniconda2/bin:\$PATH" >> $HOME/.zshrc
+    echo "alias sa='source activate'" >> ~/.zshrc
+    echo "alias sd='source deactivate'" >> ~/.zshrc
 fi
