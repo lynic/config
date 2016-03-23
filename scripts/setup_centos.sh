@@ -16,7 +16,6 @@ sudo yum install -y epel-release
 fi
 
 $DIR/../zsh/setup_zsh.sh
-$DIR/../conda/setup_conda.sh
 $DIR/../tmux/setup_tmux.sh
 $DIR/../vim/setup_vim.sh
 
