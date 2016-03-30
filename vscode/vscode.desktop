@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Visual Studio Code
+GenericName=Integrated Development Environment
+Comment=Code Editing. Redefined. Build and debug modern web and cloud applications.
+Exec=/home/elynn/Documents/vscode/code
+Icon=/home/elynn/Documents/vscode/resources/app/resources/linux/code.png
+Terminal=false
+Type=Application
+Categories=Development;IDE;
