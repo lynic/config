@@ -1,19 +1,18 @@
 #!/bin/bash
 set -x
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+VAGRANT_VERSION="1.9.1"
+VB_VERSION=5.1
 
-VB_VERSION=5.0
-
-if [[ -n $(grep -i fedora /etc/redhat-release) ]];then
-# sudo curl -o /etc/yum.repos.d/virtualbox.repo http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
-sudo yum install -y vagrant
-else
 # sudo curl -o /etc/yum.repos.d/virtualbox.repo http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
-sudo rpm -Uvh https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.rpm
-fi
+cd /etc/yum.repos.d/
+sudo curl -L http://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo -O
+sudo yum install -y VirtualBox-${VB_VERSION}
 
-vagrant plugin install vagrant-hostmanager
-vagrant plugin install --plugin-version ">= 0.0.31" vagrant-libvirt
+curl -L https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.rpm -o /tmp/vagrant.rpm
+cd /tmp/
+sudo yum install ./vagrant.rpm
+
 sudo yum install -y libvirt
 
 # sudo yum install -y kernel-devel-`uname -r`
@@ -29,7 +28,3 @@ alias v='vagrant'
 ### vagrant end ###
 END
 fi
-# if [[ ! -d ~/.vagrant.d/ ]];then
-#     mkdir ~/.vagrant.d/
-# fi
-# cp $DIR/Vagrangfile ~/.vagrant.d/
