@@ -19,4 +19,4 @@ sudo yum install ./vagrant.rpm
 # Install libvirt
 sudo yum install -y qemu libvirt libvirt-devel ruby-devel gcc qemu-kvm
 sudo usermod -aG libvirt $(whoami)
-vagrant plugin install vagrant-libvirt
+# vagrant plugin install vagrant-libvirt
