@@ -6,6 +6,11 @@
         "**/*.pyc": true,
         "**/.vagrant": true,
         "**/*.retry": true
+    },
+    "files.associations": {
+        "Vagrantfile": "ruby",
+        "*.tf": "ruby",
+        "*.tfvars": "ruby"
     }
 }
 
