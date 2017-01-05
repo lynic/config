@@ -9,5 +9,3 @@ set-option -g history-limit 100000
 set-option -g allow-rename off
 set-option -g default-shell /bin/zsh
 set-option -g default-command "/bin/zsh -c 'which reattach-to-user-namespace >/dev/null && exec reattach-to-user-namespace $SHELL -l || exec $SHELL -l'"
-POWERLINE_CONFIG_COMMAND=POWERLINE_CMD
-source POWERLINE_CONF
