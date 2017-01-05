@@ -14,6 +14,7 @@ echo "export POWERLINE_CONFIG_COMMAND=$POWERLINE_CMD" >> ~/.zshrc
 
 cp ./tmux.conf ~/.tmux.conf
 cp ./tmux.conf.local.mac ~/.tmux.conf.local
+echo "run-shell '/Users/elynn/Library/Python/2.7/bin/powerline-daemon -q'" >> ~/.tmux.conf.local
 echo "source $POWERLINE_CONF" >> ~/.tmux.conf.local
 
 git clone git clone https://github.com/powerline/fonts /tmp/fonts
