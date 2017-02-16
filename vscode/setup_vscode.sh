@@ -8,5 +8,7 @@ CONFIG_DIR=$HOME/.config/Code/User
 curl -L https://go.microsoft.com/fwlink/?LinkID=760867 -o /tmp/vscode.rpm
 cd /tmp/
 sudo yum install ./vscode.rpm -y
-ln $DIR/settings.json $CONFIG_DIR/settings.json
+if [[ ! -f $CONFIG_DIR/settings.json ]];then
+  ln $DIR/settings.json $CONFIG_DIR/settings.json
+fi
 
