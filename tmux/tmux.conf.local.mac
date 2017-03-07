@@ -9,3 +9,5 @@ set-option -g history-limit 100000
 set-option -g allow-rename off
 set-option -g default-shell /bin/zsh
 set-option -g default-command "/bin/zsh -c 'which reattach-to-user-namespace >/dev/null && exec reattach-to-user-namespace $SHELL -l || exec $SHELL -l'"
+run-shell "/Users/$USER/Library/Python/2.7/bin/powerline-daemon -q"
+source /Users/$USER/Library/Python/2.7/lib/python/site-packages/powerline/bindings/tmux/powerline.conf
