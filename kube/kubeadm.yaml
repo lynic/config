@@ -1,0 +1,14 @@
+---
+apiVersion: kubeadm.k8s.io/v1beta1
+
+kind: ClusterConfiguration
+
+imageRepository: vmware
+
+kubernetesVersion: v1.14.1+vmware.1
+networking:
+  podSubnet: "192.168.0.0/16"
+
+apiServer:
+  extraArgs:
+    feature-gates: "SCTPSupport=true"
