@@ -16,7 +16,7 @@ spec:
       containers:
         - name: node-operator
           # Replace this with the built image name
-          image: elynn/node-operator:v.0.0.1
+          image: elynn/node-operator:v0.0.1
           command:
           - node-operator
           imagePullPolicy: Always
