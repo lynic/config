@@ -1,0 +1,175 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubetest
+  labels:
+    name: kubetest
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: kubetest-operator
+  namespace: kubetest
+subjects:
+- kind: ServiceAccount
+  name: kubetest-operator
+  namespace: kubetest
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubetest-operator
+  namespace: kubetest
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubetest-operator
+  namespace: kubetest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: kubetest-operator
+  template:
+    metadata:
+      labels:
+        name: kubetest-operator
+    spec:
+      serviceAccountName: kubetest-operator
+      containers:
+        - name: kubetest-operator
+          # Replace this with the built image name
+          image: elynn/kubetest-operator:v0.0.1
+          command:
+          - kubetest-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "kubetest-operator"
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: kubetests.acm.vmware.com
+spec:
+  group: acm.vmware.com
+  names:
+    kind: KubeTest
+    listKind: KubeTestList
+    plural: kubetests
+    singular: kubetest
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: KubeTest is the Schema for the kubetests API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: KubeTestSpec defines the desired state of KubeTest
+          properties:
+            bringUpJob:
+              properties:
+                command:
+                  items:
+                    type: string
+                  type: array
+                image:
+                  type: string
+                script:
+                  type: string
+              required:
+              - image
+              - script
+              type: object
+            configMaps:
+              additionalProperties:
+                type: string
+              type: object
+            envs:
+              additionalProperties:
+                type: string
+              description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+                Important: Run "operator-sdk generate k8s" to regenerate code after
+                modifying this file Add custom validation using kubebuilder tags:
+                https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html'
+              type: object
+            tearDownJob:
+              properties:
+                command:
+                  items:
+                    type: string
+                  type: array
+                image:
+                  type: string
+                script:
+                  type: string
+              required:
+              - image
+              - script
+              type: object
+          required:
+          - bringUpJob
+          - tearDownJob
+          type: object
+        status:
+          description: KubeTestStatus defines the observed state of KubeTest
+          properties:
+            logs:
+              additionalProperties:
+                type: string
+              type: object
+            reason:
+              type: string
+            resources:
+              items:
+                type: string
+              type: array
+            stage:
+              description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                of cluster Important: Run "operator-sdk generate k8s" to regenerate
+                code after modifying this file Add custom validation using kubebuilder
+                tags: https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html'
+              type: string
+          required:
+          - logs
+          - reason
+          - resources
+          - stage
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
