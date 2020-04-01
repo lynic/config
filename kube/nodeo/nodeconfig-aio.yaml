@@ -1,20 +1,88 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nodeconfig
+  labels:
+    name: nodeconfig
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: node-operator
+  namespace: nodeconfig
+subjects:
+- kind: ServiceAccount
+  name: node-operator
+  namespace: nodeconfig
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: node-operator
+  namespace: nodeconfig
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-operator
+  namespace: nodeconfig
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: node-operator
+  template:
+    metadata:
+      labels:
+        name: node-operator
+    spec:
+      serviceAccountName: node-operator
+      containers:
+        - name: node-operator
+          # Replace this with the built image name
+          image: elynn/node-operator:v0.0.1
+          command:
+          - node-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "node-operator"
+
+
+---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: kubetests.acm.vmware.com
+  name: nodeconfigs.acm.vmware.com
 spec:
   group: acm.vmware.com
   names:
-    kind: KubeTest
-    listKind: KubeTestList
-    plural: kubetests
-    singular: kubetest
+    kind: NodeConfig
+    listKind: NodeConfigList
+    plural: nodeconfigs
+    singular: nodeconfig
   scope: Namespaced
   subresources:
     status: {}
   validation:
     openAPIV3Schema:
-      description: KubeTest is the Schema for the kubetests API
+      description: NodeConfig is the Schema for the nodeconfigs API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -29,36 +97,34 @@ spec:
         metadata:
           type: object
         spec:
-          description: KubeTestSpec defines the desired state of KubeTest
+          description: NodeConfigSpec defines the desired state of NodeConfig
           properties:
-            command:
-              items:
-                type: string
-              type: array
-            env:
-              additionalProperties:
-                type: string
-              type: object
-            testCase:
+            config:
+              type: string
+            image:
+              type: string
+            jobType:
               description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
                 Important: Run "operator-sdk generate k8s" to regenerate code after
                 modifying this file Add custom validation using kubebuilder tags:
                 https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html'
               type: string
-            testParams:
-              type: string
+            nodeMatch:
+              items:
+                additionalProperties:
+                  type: string
+                type: object
+              type: array
           required:
-          - testCase
+          - jobType
           type: object
         status:
-          description: KubeTestStatus defines the observed state of KubeTest
+          description: NodeConfigStatus defines the observed state of NodeConfig
           properties:
             jobs:
               items:
                 type: string
               type: array
-            logs:
-              type: string
             reason:
               type: string
             stage:
@@ -69,7 +135,6 @@ spec:
               type: string
           required:
           - jobs
-          - logs
           - reason
           - stage
           type: object
