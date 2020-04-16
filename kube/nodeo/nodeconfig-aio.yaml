@@ -45,6 +45,11 @@ spec:
         name: node-operator
     spec:
       serviceAccountName: node-operator
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+      tolerations:
+      - operator: Exists
+        effect: NoSchedule
       containers:
         - name: node-operator
           # Replace this with the built image name
