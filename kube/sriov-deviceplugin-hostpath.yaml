@@ -49,7 +49,8 @@ spec:
         - name: log
           mountPath: /var/log
         - name: config-volume
-          mountPath: /etc/pcidp
+          mountPath: /etc/pcidp/config.json
+          readOnly: true
       volumes:
         - name: devicesock
           hostPath:
