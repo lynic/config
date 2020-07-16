@@ -12,7 +12,7 @@ spec:
         "type": "host-local",
         "subnet": "192.168.200.1/24",
         "rangeStart": "192.168.200.1",
-        "rangeEnd": "192.168.200.1",
+        "rangeEnd": "192.168.200.1"
       }
     }'
 
@@ -30,7 +30,7 @@ spec:
         "type": "host-local",
         "subnet": "192.168.300.1/24",
         "rangeStart": "192.168.300.1",
-        "rangeEnd": "192.168.300.1",
+        "rangeEnd": "192.168.300.1"
       }
     }'
 
@@ -45,10 +45,4 @@ spec:
   containers:
   - name: dut
     command: ["/bin/bash", "-c", "trap : TERM INT; sleep infinity & wait"]
-    image: elynn/pperf:latest
-    imagePullPolicy: IfNotPresent
-    ports:
-    - containerPort: 80
-    securityContext:
-      capabilities:
-        add: ["NET_ADMIN"]
+    image: dougbtv/centos-network
