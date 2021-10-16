@@ -30,6 +30,30 @@ def generate_wrt(metric):
     print "Usage: Append the content of the newly created routes.txt to your openvpn config file," \
           " and also add 'max-routes %d', which takes a line, to the head of the file." % (len(results)+20)
 
+def generate_dsm_static_routes(metric):
+    results = fetch_ip_data()  
+    rfile=open('routes.txt','w')
+    # rfile.write("### chroutes started ###\n")
+    i=0
+    reserve_routes=[
+        ("172.20.0.0", "255.255.0.0", 16),
+        ("172.22.0.0", "255.255.0.0", 16),
+        ("192.168.21.0", "255.255.255.0", 24),
+        ("192.168.22.0", "255.255.255.0", 24),
+        ("114.114.114.114", "255.255.255.255", 32),
+    ]
+    results = reserve_routes+results
+    # print("results: %s" % results[:10])
+    for ip,mask,cidr in results:
+        route_item="[%d]\n  enable=yes\n  mask=%s\n  ip=%s\n  ifname=eth0\n  gateway=172.21.0.1\n"%(i, mask, ip)
+        rfile.write(route_item)
+        i += 1
+    # rfile.write('### chroutes ended ###\n')
+    rfile.close()
+    print "Usage: Append the content of the newly created routes.txt to your openvpn config file," \
+          " and also add 'max-routes %d', which takes a line, to the head of the file." % (len(results)+20)
+
+
 def generate_linux(metric):
     results = fetch_ip_data()
     upscript_header=textwrap.dedent("""\
@@ -260,6 +284,8 @@ if __name__=='__main__':
         generate_ovpn(args.metric)
     elif args.platform.lower() == 'wrt':
         generate_wrt(args.metric)
+    elif args.platform.lower() == 'dsm':
+        generate_dsm_static_routes(args.metric)
     elif args.platform.lower() == 'linux':
         generate_linux(args.metric)
     elif args.platform.lower() == 'mac':
